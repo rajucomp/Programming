@@ -30,8 +30,10 @@ namespace CodeForecs.Topics.String
                 Console.WriteLine(sortedLogFile);
             }
             */
+            stopwatch.Reset();
 
             stopwatch.Start();
+
             string[] optimisedSortedLogFiles = testObject.ReorderLogFilesOptimised(logFiles);
 
             stopwatch.Stop();
