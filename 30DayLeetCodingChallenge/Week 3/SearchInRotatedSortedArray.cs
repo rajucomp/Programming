@@ -30,6 +30,8 @@ namespace CodeForecs._30DayLeetCodingChallenge.Week_3
 
             Console.WriteLine("Time taken using Iterative method :- " + stopwatch.Elapsed.TotalSeconds);
 
+            stopwatch.Reset();
+
             stopwatch.Start();
             result = testObject.SearchRecursive(0, array.Length - 1, array, target);
 
