@@ -44,10 +44,23 @@ class Solution {
     
     public int maxLevelSum(TreeNode root) {
         //return bfs(root);
-        return dfs(root);
+        return dfsWithMap(root);
     }
     
-    int dfs(TreeNode root) {
+    int dfsWithoutMap(TreeNode root) {
+        List<Integer> levelSumList = new ArrayList();
+        dfs(root, levelSumList, 1);
+        int maxLevelSum = root.val, minLevel = 1;
+        for(int i = 0; i < levelSumList.size(); i++) {
+            if(levelSumList.get(i) > maxLevelSum) {
+                maxLevelSum = levelSumList.get(i);
+                minLevel = i;
+            }
+        }
+        return minLevel;
+    }
+    
+    int dfsWithMap(TreeNode root) {
         Map<Integer, Integer> levelSumMap = new HashMap();
         dfs(root, levelSumMap, 1);
         int maxLevelSum = root.val, minLevel = 1;
@@ -55,9 +68,11 @@ class Solution {
             if(entry.getValue() > maxLevelSum) {
                 maxLevelSum = entry.getValue();
                 minLevel = entry.getKey();
-            } else if(entry.getValue() == maxLevelSum) {
+            }
+            else if(entry.getValue() == maxLevelSum) {
                 minLevel = Math.min(minLevel, entry.getKey());
             }
+            
         }
         return minLevel;
     }
@@ -69,5 +84,19 @@ class Solution {
         levelSumMap.put(currentLevel, levelSumMap.getOrDefault(currentLevel, 0) + root.val);
         dfs(root.left, levelSumMap, currentLevel + 1);
         dfs(root.right, levelSumMap, currentLevel + 1);
+    }
+    
+    void dfs(TreeNode root, List<Integer> levelSumList, Integer currentLevel) {
+        if(root == null) {
+            return;
+        }
+        if(currentLevel > levelSumList.size()) {
+            levelSumList.add(root.val);
+        }
+        else {
+            levelSumList.set(currentLevel - 1, levelSumList.get(currentLevel - 1) + root.val);
+        }
+        dfs(root.left, levelSumList, currentLevel + 1);
+        dfs(root.right, levelSumList, currentLevel + 1);
     }
 }
