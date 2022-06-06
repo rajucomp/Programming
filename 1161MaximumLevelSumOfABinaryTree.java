@@ -44,7 +44,8 @@ class Solution {
     
     public int maxLevelSum(TreeNode root) {
         //return bfs(root);
-        return dfsWithMap(root);
+        //return dfsWithMap(root);
+        return dfsWithoutMap(root);
     }
     
     int dfsWithoutMap(TreeNode root) {
@@ -54,7 +55,7 @@ class Solution {
         for(int i = 0; i < levelSumList.size(); i++) {
             if(levelSumList.get(i) > maxLevelSum) {
                 maxLevelSum = levelSumList.get(i);
-                minLevel = i;
+                minLevel = i + 1;
             }
         }
         return minLevel;
